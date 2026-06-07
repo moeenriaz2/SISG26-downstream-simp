@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Practical 5: COJO — SISG26 QG3</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;background:#0B1D2E;color:#fff;min-height:100vh;display:flex;flex-direction:column;}
+
+/* Nav */
+nav{background:rgba(11,29,46,.95);border-bottom:2px solid #0D9488;padding:.7rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
+.nav-brand{font-size:1rem;font-weight:700;color:#fff;text-decoration:none;}
+.nav-brand span{color:#0D9488;}
+.nav-gh{display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);padding:.35rem .9rem;border-radius:20px;font-size:.82rem;color:#CBD5E1;text-decoration:none;transition:background .15s;}
+.nav-gh:hover{background:rgba(255,255,255,.15);color:#fff;text-decoration:none;}
+
+/* Hero */
+.hero{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:5rem 1.5rem 4rem;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(13,148,136,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(13,148,136,.06) 1px,transparent 1px);background-size:55px 55px;}
+.hero-inner{position:relative;z-index:1;max-width:680px;}
+
+.badge-pill{display:inline-flex;align-items:center;gap:.5rem;background:rgba(13,148,136,.15);border:1px solid rgba(13,148,136,.4);border-radius:40px;padding:.32rem .95rem;font-size:.75rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:#6EE7E0;margin-bottom:1.6rem;}
+.badge-pill .dot{width:7px;height:7px;background:#0D9488;border-radius:50%;animation:pulse 2s ease infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.5)}}
+
+h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:700;line-height:1.15;margin-bottom:1.1rem;letter-spacing:-.02em;}
+h1 em{color:#0D9488;font-style:normal;}
+.subtitle{font-size:1rem;color:#94A3B8;line-height:1.7;margin-bottom:2.2rem;max-width:520px;margin-left:auto;margin-right:auto;}
+
+/* CTA button */
+.btn-open{display:inline-flex;align-items:center;gap:.6rem;background:#0D9488;color:#fff;font-weight:700;font-size:1rem;padding:.85rem 2.2rem;border-radius:10px;text-decoration:none;transition:all .2s;box-shadow:0 4px 20px rgba(13,148,136,.35);margin-bottom:3rem;}
+.btn-open:hover{background:#0F766E;color:#fff;transform:translateY(-2px);box-shadow:0 8px 28px rgba(13,148,136,.45);text-decoration:none;}
+
+/* Stats */
+.stats{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;}
+.stat{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:.7rem 1.4rem;text-align:center;}
+.stat-v{font-size:1.4rem;font-weight:700;color:#0D9488;font-family:"Courier New",monospace;line-height:1;}
+.stat-l{font-size:.7rem;color:#64748B;text-transform:uppercase;letter-spacing:.07em;margin-top:.2rem;}
+
+/* Info cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;max-width:900px;margin:3.5rem auto 0;padding:0 1.5rem;width:100%;}
+.card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1.3rem 1.5rem;text-align:left;position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.card.c1::before{background:#0D9488;}
+.card.c2::before{background:#0EA5E9;}
+.card.c3::before{background:#7C3AED;}
+.card h3{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem;}
+.card.c1 h3{color:#0D9488;}
+.card.c2 h3{color:#0EA5E9;}
+.card.c3 h3{color:#A78BFA;}
+.card p{font-size:.85rem;color:#94A3B8;line-height:1.6;margin:0;}
+
+/* Footer */
+footer{text-align:center;padding:1.8rem;font-size:.8rem;color:#334155;border-top:1px solid rgba(255,255,255,.05);}
+footer a{color:#0D9488;text-decoration:none;}
+footer a:hover{text-decoration:underline;}
+
+@media(max-width:600px){.hero{padding:4rem 1rem 3rem;} .cards{padding:0 1rem;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="#">SISG<span>26</span> · QG3</a>
+  <a class="nav-gh" href="https://github.com/moeenriaz2/SISG26-downstream-simp" target="_blank">
+    <i class="fab fa-github"></i> GitHub
+  </a>
+</nav>
+
+<main class="hero">
+  <div class="hero-inner">
+
+    <div class="badge-pill">
+      <span class="dot"></span>
+      Summer Institute in Statistical Genetics · Module QG3
+    </div>
+
+    <h1>Practical 5:<br/><em>Conditional &amp; Joint Analysis</em></h1>
+
+    <p class="subtitle">
+      A hands-on R practical exploring GCTA-COJO — simulate GWAS data,
+      run conditional analysis, and investigate factors that influence results.
+    </p>
+
+    <a class="btn-open" href="QG3_Downstream-Analyses_practical.html">
+      <i class="fas fa-terminal"></i> Open Practical
+    </a>
+
+    <div class="stats">
+      <div class="stat"><div class="stat-v">3</div><div class="stat-l">Parts</div></div>
+      <div class="stat"><div class="stat-v">4</div><div class="stat-l">Questions</div></div>
+      <div class="stat"><div class="stat-v">2000</div><div class="stat-l">Simulated SNPs</div></div>
+      <div class="stat"><div class="stat-v">50K</div><div class="stat-l">GWAS sample</div></div>
+    </div>
+
+  </div>
+</main>
+
+<div class="cards">
+  <div class="card" style="border-top:2px solid #F59E0B;grid-column:1/-1;">
+    <h3 style="color:#F59E0B;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem;"><i class="fas fa-download"></i> Setup — Download PLINK &amp; GCTA</h3>
+    <p style="font-size:.85rem;color:#94A3B8;line-height:1.6;margin-bottom:.75rem;">Clone the <a href="https://github.com/moeenriaz2/SISG26-PRS" target="_blank" style="color:#F59E0B;">SISG26-PRS</a> repo and run <code style="font-size:.82em;background:rgba(255,255,255,.08);padding:1px 5px;border-radius:3px;">setup.sh</code> to install PLINK and GCTA, then add them to your PATH.</p>
+    <pre style="background:rgba(0,0,0,.4);border-radius:8px;padding:.8rem 1rem;font-size:.82rem;color:#A8D8F0;margin:0;overflow-x:auto;font-family:'Courier New',monospace;line-height:1.6">git clone https://github.com/moeenriaz2/SISG26-PRS.git
+cd SISG26-PRS
+bash setup.sh                      <span style="color:#4A7A60"># downloads PLINK 1.9, PLINK 2, GCTB → exe/</span>
+export PATH="$PWD/exe:$PATH"</pre>
+  </div>
+  <div class="card c1">
+    <h3><i class="fas fa-database"></i> Part I — Simulate Data</h3>
+    <p>Build a 1 Mb chromosome with 20 LD blocks and 100 known causal variants. Generate GWAS genotypes, phenotypes, and an LD reference panel.</p>
+  </div>
+  <div class="card c2">
+    <h3><i class="fas fa-terminal"></i> Part II — Run COJO</h3>
+    <p>Run GCTA-COJO with different LD reference sizes (N = 5000, 2000, 1000, 500) and heritability values. Measure power and false discovery rate.</p>
+  </div>
+  <div class="card c3">
+    <h3><i class="fas fa-tools"></i> Part III — Fix COJO?</h3>
+    <p>Apply the <code style="font-size:.82em;background:rgba(255,255,255,.08);padding:1px 5px;border-radius:3px;">--cojo-collinear 0.1</code> flag to reduce false positives when the LD reference is small.</p>
+  </div>
+</div>
+
+<footer style="margin-top:3rem;">
+  Dr. Moeen Riaz · SISG26 · <em>Original practical: Joelle Mbatchou &amp; Loic Yengo — SISG 2025</em>
+  &nbsp;·&nbsp;
+  <a href="https://joellembatchou.github.io/SISG2025_Association_Mapping/QG3_Downstream-Analyses_practical.html" target="_blank">Original source</a>
+  &nbsp;·&nbsp;
+  <a href="https://github.com/moeenriaz2/SISG26-downstream-simp" target="_blank">GitHub</a>
+</footer>
+
+</body>
+</html>
